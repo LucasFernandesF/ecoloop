@@ -1,0 +1,17 @@
+:root {
+    --primary-color: #233220;
+    --neutral-white: #ffffff;
+    --neutral-black: #111111;
+}
+
+*    {
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;    
+}
+
+html, body {
+    overflow-x: hidden; /* Impede o scroll horizontal */
+    width: 100%; /* Garante que a largura não ultrapasse o limite */
+}

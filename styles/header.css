@@ -1,0 +1,87 @@
+header {
+    display: flex;
+    width: 100%;
+    padding: 8px 11rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffff;
+    position: absolute;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+.navbar-brand a {
+    text-decoration-line: none ;
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-brand a:hover {
+    cursor: pointer;
+}
+
+.navbar-brand img {
+    width: 4.25rem;
+    height: 4.6rem;
+    flex-shrink: 0;
+}
+
+.navbar-brand .ecoloop {
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 700
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.action .nav-item {
+    border-radius: 50px;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.action .nav-item:hover {
+    cursor: pointer;
+}
+
+.action a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.action .cadastro {
+    background: var(--primary-color);
+    border-radius: 64px;
+    padding: 8px 24px;
+    color: var(--neutral-white);
+    font-weight: 500;
+}
+
+.action .eventos {
+    padding: 8px 24px;
+    border-radius: 63.194px;
+    border: 2px solid var(--primary-color);
+}
+

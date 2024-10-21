@@ -1,0 +1,145 @@
+#hero-section {
+    position: relative;
+}
+
+#hero-section img {
+    width: 100%;
+    height: auto;
+}
+
+#slogan {
+    position: absolute;
+    top: 40%;
+    width: 38rem;
+    font-size: 4rem;
+    font-weight: 900;
+    z-index: 1;
+    letter-spacing: -1.3px;
+    line-height: 100%;
+    color: var(--neutral-white);
+}
+
+#pontos-coleta .container {
+    height: auto;
+    padding: 2rem 0;
+}
+
+#pontos-coleta .info-coleta {
+    padding-top: 5rem;
+}
+
+#pontos-coleta h3 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -0.88px;
+    padding-bottom: 2rem;
+}
+
+#pontos-coleta img {
+    width: 100%;
+    max-width: 525px;
+    height: auto;
+    border-radius: 24px;
+    margin-left: 6rem;
+}
+
+#pontos-coleta p {
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.48px;
+    text-align: justify;
+    padding-right: 2rem;
+}
+
+.background-img {
+    height: 100vh;
+    background-image: url('/imgs/floresta-sobre-nos.png');
+    background-repeat: no-repeat;
+    height: 800px;
+}
+
+.background-img h3 {
+    padding-top: 2rem;
+    color: var(--neutral-white);
+    text-align: center;
+    font-size: 2.75rem;
+    font-weight: 900;
+    line-height: 100%;
+}
+
+#sobre-nos p {
+    padding-left: 200px;
+    width: 69rem;
+    padding-top: 2rem;
+    color: var(--neutral-white);
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.48px;
+}
+
+#sobre-nos a {
+    text-decoration: none;
+    color: var(--neutral-white);
+}
+
+footer {
+    margin: 60px 0 60px 0;
+}
+
+footer .navbar-brand p {
+    color: var(--neutral-black);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer h4 {
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+footer li a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 12px
+}
+
+footer li div {
+    font-size: 12px;
+}
+
+
+@media (max-width: 768px) {
+    #hero-section img {
+        height: auto;
+        margin-bottom: 0;
+    }
+
+    #slogan {
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #pontos-coleta .info-coleta {
+        padding-top: 2rem;
+    }
+
+    #pontos-coleta img {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+}
