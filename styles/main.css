@@ -88,7 +88,8 @@
 }
 
 footer {
-    margin: 60px 0 60px 0;
+    margin: 60px 0;
+    text-align: left;
 }
 
 footer .navbar-brand p {
@@ -141,5 +142,21 @@ footer li div {
         height: auto;
         margin-left: 0;
         margin-top: 1rem;
+    }
+
+    #sobre-nos p {
+        padding-left: 0;
+        font-size: 1rem;
+        width: 25rem;
+        text-align: center;
+    }
+
+    #sobre-nos {
+        justify-content: center;
+
+    }
+
+    .background-img {
+        height: 125rem;
     }
 }

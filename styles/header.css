@@ -7,11 +7,9 @@ header {
     align-items: center;
     gap: 10px;
     margin: 0 auto;
-    position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: #ffff;
-    position: absolute;
+    background-color: var(--neutral-white);
 }
 
 header .container {
