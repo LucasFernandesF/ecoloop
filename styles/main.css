@@ -144,19 +144,34 @@ footer li div {
         margin-top: 1rem;
     }
 
+    #pontos-coleta h3 {
+        margin-left: 2.5rem;
+    }
+
     #sobre-nos p {
-        padding-left: 0;
+        margin-top: 2rem;
+        margin-left: 3rem;
+        width: 20rem;
         font-size: 1rem;
-        width: 25rem;
-        text-align: center;
+        padding: 0;
     }
 
-    #sobre-nos {
-        justify-content: center;
-
-    }
 
     .background-img {
-        height: 125rem;
+        height: 135rem;
+        background-repeat: repeat;
     }
+
+    .avatar-equipe {
+        margin-left: 6rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    #sobre-nos p {
+        padding-right: 25rem;
+        text-align: center;
+        font-size: 1rem
+    }
+
 }
