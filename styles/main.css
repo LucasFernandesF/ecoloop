@@ -156,6 +156,9 @@ footer li div {
         padding: 0;
     }
 
+    #p-texto-coleta {
+        margin-left: 2rem;
+    }
 
     .background-img {
         height: 135rem;
