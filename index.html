@@ -20,7 +20,7 @@
 <body>
     <header class="navbar navbar-expand-lg ">
         <div class="container">
-            <div class="navbar-brand">
+            <div class="logo-brand">
                 <a href="/index.html">
                     <img src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
                     <div class="ecoloop">ECOLOOP</div>
@@ -74,7 +74,8 @@
             <div class="row info-coleta">
                 <div class="col-md-6">
                     <h3>Pontos de Coleta</h3>
-                    <p>O descarte correto de resíduos é essencial para a preservação do meio ambiente. Nosso mapa
+                    <p id="p-texto-coleta">O descarte correto de resíduos é essencial para a preservação do meio
+                        ambiente. Nosso mapa
                         interativo permite que você localize facilmente pontos de coleta para diversos tipos de
                         materiais, como lixo eletrônico, óleo de cozinha usado, baterias, e muito mais.
                         <br></br>
@@ -147,43 +148,54 @@
         </div>
     </section>
     <footer>
-        <div class="container">
-            <div class="row" id="membros-equipe">
-                <div class="col-md-3">
-                    <div class="navbar-brand ">
-                        <a href="/index.html">
-                            <img src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
-                            <div class="ecoloop">ECOLOOP</div>
-                        </a>
-                        <p class="ms-3">Conectando pessoas e natureza <br> em um loop sustentável.</p>
+        <section id="rodape">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-3 mt-3">
+                        <div class="logo-brand logo-footer">
+                            <a href="/index.html">
+                                <img src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
+                                <div class="ecoloop">ECOLOOP</div>
+                            </a>
+                            <p>Conectando pessoas e natureza <br> em um loop sustentável.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9 mt-3">
+                        <div class="row">
+                            <div class="col-4 col-md-4 mt-3">
+                                <h4>Conteúdos</h4>
+                                <ul>
+                                    <li class="mt-2"><a href="html/eventos.html">Eventos</a></li>
+                                    <li class="mt-2"><a href="html/cadastro.html">Cadastro</a></li>
+                                    <li class="mt-2"><a href="#sobre-nos">Sobre nós</a></li>
+                                    <li class="mt-2"><a href="#pontos-coleta">Pontos de coleta</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4 col-md-4 mt-3">
+                                <h4>Sobre</h4>
+                                <ul>
+                                    <li class="mt-2"><a href="">Minha Conta</a></li>
+                                    <li class="mt-2"><a href="">Politica de termos de uso</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-4 col-md-4 mt-3">
+                                <h4>Contato</h4>
+                                <ul>
+                                    <li class="mt-2">
+                                        <div>email@email.com</div>
+                                    </li>
+                                    <li class="mt-2">
+                                        <div>(XX) 99999-9999</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <h4>Conteúdos</h4>
-                    <ul>
-                        <li class="mt-2"><a href="html/eventos.html">Eventos</a></li>
-                        <li class="mt-2"><a href="html/cadastro.html">Cadastro</a></li>
-                        <li class="mt-2"><a href="#sobre-nos">Sobre nós</a></li>
-                        <li class="mt-2"><a href="#pontos-coleta">Pontos de coleta</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h4>Sobre</h4>
-                    <ul>
-                        <li class="mt-2"><a href="">Minha Conta</a></li>
-                        <li class="mt-2"><a href="">Politica de termos de uso</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h4>Contato</h4>
-                    <ul>
-                        <li class="mt-2"><div>email@email.com</div></li>
-                        <li class="mt-2"><div>(XX) 99999-9999</div></li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
