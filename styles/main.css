@@ -70,8 +70,6 @@
 }
 
 #sobre-nos p {
-    padding-left: 200px;
-    width: 69rem;
     padding-top: 2rem;
     color: var(--neutral-white);
     font-size: 1.5rem;
@@ -117,8 +115,6 @@ footer li div {
     font-size: 12px;
 }
 
-
-
 @media (max-width: 768px) {
     #hero-section img {
         height: auto;
@@ -128,7 +124,6 @@ footer li div {
     #slogan {
         font-size: 18px;
         width: 100%;
-        text-align: center;
         margin-top: 20px;
     }
 
@@ -153,6 +148,7 @@ footer li div {
         width: 20rem;
         font-size: 1rem;
         padding: 0;
+        text-align: center;
     }
 
     #p-texto-coleta {
@@ -182,11 +178,48 @@ footer li div {
 
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1023px) {
     #sobre-nos p {
         padding-right: 25rem;
         text-align: center;
         font-size: 1rem
     }
 
+    .avatar-equipe {
+        margin:2rem;
+        margin-left: 7rem;
+    }
+
+    .background-img {
+        height: auto;
+        background-repeat: repeat;
+    }
+
+    .background-img h4 {
+        margin-left: 3.5rem;
+    }
+
+    footer .logo-brand p {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    #sobre-nos p {
+        margin-left: 1rem;
+    }
+
+    .avatar-equipe {
+        margin-left: 4.8rem;
+    }
+
+    .logo-footer a {
+        margin-left: 6rem;
+    }
+
+    .logo-brand p {
+        margin-left: 6.5rem;
+    }
+
+    
 }
