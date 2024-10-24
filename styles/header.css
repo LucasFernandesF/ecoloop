@@ -19,7 +19,7 @@ header .container {
     align-self: stretch;
 }
 
-.navbar-brand a {
+.logo-brand a {
     text-decoration-line: none ;
     display: flex;
     width: 10rem;
@@ -28,17 +28,17 @@ header .container {
     gap: 8px;
 }
 
-.navbar-brand a:hover {
+.logo-brand a:hover {
     cursor: pointer;
 }
 
-.navbar-brand img {
+.logo-brand img {
     width: 4.25rem;
     height: 4.6rem;
     flex-shrink: 0;
 }
 
-.navbar-brand .ecoloop {
+.logo-brand .ecoloop {
     color: var(--primary-color);
     font-size: 18px;
     font-weight: 700
