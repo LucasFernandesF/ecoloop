@@ -36,10 +36,10 @@
     padding-bottom: 2rem;
 }
 
-#pontos-coleta img {
+#map {
     width: 100%;
-    max-width: 525px;
-    height: auto;
+    max-width: 33rem;
+    height: 27rem;
     border-radius: 24px;
     margin-left: 6rem;
 }
