@@ -19,47 +19,10 @@
 
 <body>
     <header class="navbar navbar-expand-lg ">
-        <div class="container">
-            <div class="navbar-brand">
-                <a href="/index.html">
-                    <img src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
-                    <div class="ecoloop">ECOLOOP</div>
-                </a>
-            </div>
-            <button id="hamburger" class="navbar-toggler collapsed" data-bs-toggle="collapse"
-                data-bs-target="#menu-nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="action navbar navbar-collapse" id="menu-nav">
-                <ul id="navbar-links" class="navbar-nav ms-auto">
-                    <li class="nav-item active">
-                        <a href="#pontos-coleta">
-                            <div class="pontos-de-coleta">Pontos de Coleta</div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#sobre-nos">
-                            <div class="sobre-nos">Sobre nós</div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="html/eventos.html">
-                            <div class="eventos">Eventos</div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/html/cadastros.html">
-                            <div class="cadastro">Cadastro</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
     </header>
     <section id="hero-section">
         <div id="banner">
-            <img src="./imgs/header floresta.png" alt="floresta banner slogan">
+            <img alt="image" src="./imgs/header floresta.png" alt="floresta banner slogan">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -86,7 +49,7 @@
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <img src="./imgs/maps pontos de coleta.png">
+                    <img alt="image" src="./imgs/maps pontos de coleta.png">
                 </div>
             </div>
         </div>
@@ -102,43 +65,43 @@
                 <div class="row">
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="https://www.linkedin.com/in/lucasfernandesfirmino/">
-                            <img src="/imgs/avatar_lucas_fernandes.png">
+                            <img alt="image" src="/imgs/avatar_lucas_fernandes.png">
                             <h4 class="mt-3">Lucas Fernandes</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_kauan.png">
+                            <img alt="image" src="/imgs/avatar_kauan.png">
                             <h4 class="mt-3">Kauan Fernandes</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_cesar.png">
+                            <img alt="image" src="/imgs/avatar_cesar.png">
                             <h4 class="mt-3">César Henrique</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_diego.png">
+                            <img alt="image" src="/imgs/avatar_diego.png">
                             <h4 class="mt-3">Diego Pinheiro</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_joao.png">
+                            <img alt="image" src="/imgs/avatar_joao.png">
                             <h4 class="mt-3">João Gabriel</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_lucas_ferreira.png">
+                            <img alt="image" src="/imgs/avatar_lucas_ferreira.png">
                             <h4 class="mt-3">Lucas Ferreria</h4>
                         </a>
                     </div>
                     <div class="col-md-3 mt-3 avatar-equipe">
                         <a href="">
-                            <img src="/imgs/avatar_wallace.png">
+                            <img alt="image" src="/imgs/avatar_wallace.png">
                             <h4 class="mt-3">Wallace Rodrigues</h4>
                         </a>
                     </div>
@@ -152,7 +115,7 @@
                 <div class="col-md-3">
                     <div class="navbar-brand ">
                         <a href="/index.html">
-                            <img src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
+                            <img alt="image" src="/imgs/logo ecoloop.png" alt="fundo de uma floresta">
                             <div class="ecoloop">ECOLOOP</div>
                         </a>
                         <p class="ms-3">Conectando pessoas e natureza <br> em um loop sustentável.</p>
@@ -177,14 +140,31 @@
                 <div class="col-md-3">
                     <h4>Contato</h4>
                     <ul>
-                        <li class="mt-2"><div>email@email.com</div></li>
-                        <li class="mt-2"><div>(XX) 99999-9999</div></li>
+                        <li class="mt-2">
+                            <div>email@email.com</div>
+                        </li>
+                        <li class="mt-2">
+                            <div>(XX) 99999-9999</div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('layouts/header.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Erro ao carregar o arquivo header.html');
+                    return response.text();
+                })
+                .then(data => {
+                    document.querySelector('header').innerHTML = data;
+                })
+                .catch(error => console.error(error));
+        });
+    </script>
 </body>
 
 </html>
