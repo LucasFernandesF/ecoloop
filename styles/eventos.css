@@ -1,0 +1,73 @@
+/* Estilos específicos para a página de eventos */
+#eventos-lista {
+    padding: 2rem 11rem;
+    background-color: var(--neutral-white);
+}
+
+#eventos-lista h3 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.evento-card {
+    background-color: #f2f2f2;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.evento-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.evento-info {
+    padding: 1rem 0;
+}
+
+.evento-info h4 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.evento-info p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.evento-info .data {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--neutral-white);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1c2619;
+}
+
+.cadastro {
+    background: var(--primary-color);
+    border-radius: 10px;
+    padding: 10px 24px;
+    color: var(--neutral-white);
+    font-weight: 500;
+}
