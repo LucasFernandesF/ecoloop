@@ -7,16 +7,52 @@
     height: auto;
 }
 
+#branding,
 #slogan {
     position: absolute;
-    top: 40%;
+    top: 35%;
+    color: var(--neutral-white);
+    opacity: 0;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;  
+}
+
+#slogan {
     width: 38rem;
     font-size: 4rem;
     font-weight: 900;
     z-index: 1;
     letter-spacing: -1.3px;
     line-height: 100%;
-    color: var(--neutral-white);
+    animation-name: fadeTextSlogan;
+}
+
+#branding {
+    font-size: 2rem;
+    font-weight: 700;
+    width: 700px;
+    animation-name: fadeTextBranding;
+}
+
+@keyframes fadeTextSlogan {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeTextBranding {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 #pontos-coleta .container {
@@ -88,7 +124,7 @@
 }
 
 footer {
-   height: 13rem;
+    height: 13rem;
 }
 
 footer .logo-brand p {
@@ -191,7 +227,7 @@ footer li div {
     }
 
     .avatar-equipe {
-        margin:2rem;
+        margin: 2rem;
         margin-left: 7rem;
     }
 
@@ -227,12 +263,12 @@ footer li div {
     }
 
     #map {
-       width: 90%;
-       max-width: 18rem;
-       height: auto;
-       aspect-ratio: 4 / 3;
-       margin-left: auto;
-       margin-right: auto;
+        width: 90%;
+        max-width: 18rem;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
