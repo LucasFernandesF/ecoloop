@@ -60,11 +60,13 @@
     padding: 2rem 0;
 }
 
-#pontos-coleta .info-coleta {
+#pontos-coleta .info-coleta,
+.linha-projeto {
     padding-top: 5rem;
 }
 
-#pontos-coleta h3 {
+#pontos-coleta h3,
+#sobre-projeto h3 {
     font-size: 2.75rem;
     font-weight: 700;
     line-height: 100%;
@@ -72,7 +74,8 @@
     padding-bottom: 2rem;
 }
 
-#map {
+#map,
+#img-projeto {
     width: 100%;
     max-width: 33rem;
     height: auto;
@@ -85,7 +88,6 @@
 
 #pontos-coleta p {
     color: var(--primary-color);
-    font-size: 24px;
     font-weight: 400;
     line-height: 100%;
     letter-spacing: -0.48px;
@@ -93,10 +95,12 @@
     padding-right: 2rem;
 }
 
+
 .background-img {
     background-image: url('/imgs/floresta-sobre-nos.png');
     background-repeat: no-repeat;
     height: 800px;
+    margin-top: 3rem;
 }
 
 .background-img h3 {
@@ -106,6 +110,10 @@
     font-size: 2.75rem;
     font-weight: 900;
     line-height: 100%;
+}
+
+#sobre-nos .container {
+    padding-top: 1.5rem;
 }
 
 #sobre-nos p {
@@ -224,6 +232,32 @@ footer li div {
     #rodape {
         height: 22rem;
     }
+
+    #sobre-projeto .linha-projeto {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #sobre-projeto h3 {
+        font-size: 2rem;
+        padding-bottom: 1rem;
+        margin-top: 2rem;
+    }
+
+    #img-projeto {
+        max-width: 23rem;
+    }
+
+    #sobre-projeto p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+
+    #sobre-nos .container {
+        padding-top: 0;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 1023px) {
@@ -258,6 +292,17 @@ footer li div {
         margin-top: 20px;
         top: 30%;
     }
+
+    #sobre-projeto h3 {
+        font-size: 2.25rem;
+        padding-bottom: 1.5rem;
+    }
+
+    #sobre-projeto p {
+        font-size: 1.125rem;
+        padding: 0 2rem;
+        text-align: justify;
+    }
 }
 
 @media (max-width: 376px) {
@@ -285,6 +330,19 @@ footer li div {
         margin-left: auto;
         margin-right: auto;
     }
+
+    #sobre-projeto h3 {
+        font-size: 1.75rem;
+    }
+
+    #img-projeto {
+        max-width: 18rem;
+    }
+
+    #sobre-projeto p {
+        font-size: 0.875rem;
+        padding: 0 1rem;
+    }
 }
 
 @media (min-width: 390px) and (max-width: 413px) {
@@ -307,5 +365,9 @@ footer li div {
         aspect-ratio: 4 / 3;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    #img-projeto {
+        max-width: 20rem;
     }
 }
