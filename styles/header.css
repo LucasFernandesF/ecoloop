@@ -89,28 +89,35 @@ header .container {
 
 .menu-container {
     position: relative;
-    display: inline-block;
 }
+
 .menu-dropdown {
     display: none;
     position: absolute;
-    top: 40px;
+    top: 100%;
     right: 0;
-    background-color: red;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    width: 200px;
-    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 10;
 }
+
 .menu-dropdown a {
     display: block;
+    padding: 0.5rem 0;
     color: #333;
-    padding: 8px;
     text-decoration: none;
 }
+
 .menu-dropdown a:hover {
-    background-color: #f1f1f1;
+    color: #007bff;
 }
-.menu-button {
-    cursor: pointer;
+
+.menu-container:hover .menu-dropdown {
+    display: block;
+}
+
+.menu-container.active .menu-dropdown {
+    display: block;
 }
