@@ -7,7 +7,12 @@ export async function loginEmail() {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
         alert("Login realizado com sucesso!");
+
+        setTimeout(() => {
+            window.location.href = "../html/minha-conta.html";
+        }, 2000);
     } catch (error) {
         console.error("Erro ao logar: ", error.message);
         alert("Erro ao logar: " + error.message);
