@@ -1,0 +1,65 @@
+#info-coleta .bi-person-circle {
+    font-size: 200px;
+}
+
+.retangulo-verde {
+    background-color: var(--primary-color);
+    width: 696px;
+    height: 336px;
+    border-radius: 24px;
+}
+
+.retangulo-verde h3 {
+    color: var(--neutral-white);
+    font-weight: 900;
+    padding-left: 2rem;
+    padding-top: 1.5rem;
+}
+
+#editar-info {
+    margin-top: 1.5rem;
+}
+
+.editar-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+    color: var(--neutral-white); 
+    cursor: pointer;
+}
+
+.editar-link .bi-pencil-square {
+    font-size: 54px;
+}
+
+.editar-link h3 {
+    margin: 0;
+    font-weight: 900;
+}
+
+
+#editar-info .bi-pencil-square {
+    font-size: 54px;
+    padding-left: 2rem;
+}
+
+#editar-info h3 {
+    margin-bottom: 1.5rem;
+    color: var(--neutral-white);
+}
+.retangulo-branco {
+    width: 590px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid var(--Light-Gray-6, #9E9E9E);
+    background: var(--light-primary-5, #F3F8FF);
+    margin-left: 2rem; /* Adiciona espaçamento à esquerda */
+    box-sizing: border-box;
+}
+
+.retangulo-branco p {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+}
