@@ -62,6 +62,38 @@ body {
     text-decoration: underline;
 }
 
+/* Estilo para o checkbox deslizante */
+.form-check-input[type="checkbox"] {
+    height: 1rem;
+    width: 2rem;
+    background-color: #ccc;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+}
+
+.form-check-input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border-radius: 50%;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.7s;
+}
+
+.form-check-input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+}
+
+
+
 @media (max-width: 768px) {
     .login-form {
         width: 90%;

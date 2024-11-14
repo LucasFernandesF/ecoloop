@@ -1,6 +1,6 @@
 /* Estilos específicos para a página de eventos */
 #eventos-lista {
-    padding: 2rem 11rem;
+    padding: 2rem 1rem; /* Ajuste de padding para telas menores */
     background-color: var(--neutral-white);
 }
 
@@ -16,7 +16,6 @@
     background-color: #f2f2f2;
     border-radius: 12px;
     padding: 1rem;
-    margin-bottom: 2rem;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,11 +24,7 @@
     border-radius: 8px;
 }
 
-.evento-info {
-    padding: 1rem 0;
-}
-
-.evento-info h4 {
+.evento-info h4, .card-title {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -42,7 +37,7 @@
     line-height: 1.5;
 }
 
-.evento-info .data {
+.data, .card-date {
     font-size: 1rem;
     font-weight: bold;
     color: var(--primary-color);
@@ -70,4 +65,26 @@
     padding: 10px 24px;
     color: var(--neutral-white);
     font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    #eventos-lista {
+        padding: 1rem;
+    }
+    .evento-card {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+    .evento-info p, .data {
+        font-size: 0.9rem;
+    }
+    .btn {
+        font-size: 0.9rem;
+    }
 }
