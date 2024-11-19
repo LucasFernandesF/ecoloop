@@ -1,12 +1,11 @@
-
-function toggleOngFields() {
-    const ongFields = document.getElementById("ongFields");
-    ongFields.style.display = ongFields.style.display === "none" ? "block" : "none";
-}
-
 import { auth, db } from './firebase.js';
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { setDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+export function toggleOngFields() {
+    const ongFields = document.getElementById("ongFields");
+    ongFields.style.display = ongFields.style.display === "none" ? "block" : "none";
+}
 
 export async function cadastrarUsuarios() {
     const email = document.getElementById("email").value;
