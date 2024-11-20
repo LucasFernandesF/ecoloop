@@ -87,7 +87,7 @@
     background-color: var(--neutral-black);
 }
 
-#btn-adicionar-eventos {
+#div-adicionar-eventos {
     display: flex;
     justify-content: space-between;
     align-items: center;
