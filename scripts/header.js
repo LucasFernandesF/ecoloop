@@ -30,5 +30,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+
+
+  document.addEventListener("click", (event) => {
+    if (event.target.id === 'logout') {
+      event.preventDefault();
+      auth.signOut().then(() => {
+        console.log("Usuário deslogado");
+        window.location.href = "/index.html";
+      }).catch((error) => {
+        console.error("Erro ao fazer logout:", error.message);
+      });
+    }
+  });
+
 });
 

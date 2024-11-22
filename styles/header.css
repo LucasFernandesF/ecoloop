@@ -51,6 +51,11 @@ header .container {
     gap: 24px;
 }
 
+.nav-item .clear{
+    width: 100%;
+    margin-top: 0.8rem;
+}
+
 .action .nav-item {
     border-radius: 50px;
     display: flex;
@@ -69,7 +74,7 @@ header .container {
     color: inherit;
 }
 
-.action .cadastro {
+.action .btn-primary {
     background: var(--primary-color);
     border-radius: 64px;
     padding: 8px 24px;
