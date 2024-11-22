@@ -31,22 +31,22 @@
             </li>
             <li class="nav-item">
                 <a href="/html/login.html">
-                    <div class="cadastro">Cadastro</div>
+                    <div class="btn-primary">Cadastro</div>
                 </a>
             </li>
             <li class="nav-item">
                 <div class="menu-container">
-                  <i class="bi bi-person-circle fs-2 menu-button"></i>
-                  <div class="menu-dropdown">
-                    <div class="email-logado" style="display: none;"></div>
-                    <a href="/html/login.html" class="minha-conta-link">Minha Conta</a>
-                    <a href="/html/login.html" class="minhas-conta-link">Minhas Inscrições</a>
-                    <a href="#">Sair</a>
-                  </div>
+                    <i class="bi bi-person-circle fs-2 menu-button"></i>
+                    <div class="menu-dropdown">
+                        <div class="email-logado" style="display: none;"></div>
+                        <a href="/html/minha-conta.html" class="minha-conta-link">Minha Conta</a>
+                        <a href="/html/minha-conta.html" class="minhas-conta-link">Minhas Inscrições</a>
+                        <button type="button" class="btn-primary clear" id="logout">Sair</button>
+                    </div>
                 </div>
-              </li>              
+            </li>
         </ul>
     </div>
 </div>
-<script type="module" src="/scripts/header.js"></script>
-<script type="module" src="/scripts/firebase.js"></script>
+<script type="module" src="/scripts/header.js" defer></script>
+<script type="module" src="/scripts/firebase.js" defer></script>
