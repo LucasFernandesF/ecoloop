@@ -29,7 +29,7 @@ export async function cadastrarUsuarios() {
             email: email,
             isOng: isOng,
             ongName: isOng ? ongName : null,
-            cnpj: isOng ? cnpj : null,
+            cnpj: isOng ? cnpj : null,  
             createdAt: serverTimestamp()
         });
 
