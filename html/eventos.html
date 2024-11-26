@@ -16,7 +16,7 @@
 </head>
 <body>
     <header class="navbar navbar-expand-lg ">
-        
+
     </header>
     <section id="hero-section">
         <div id="banner">
@@ -40,33 +40,24 @@
                         <span class="close-button" id="close-modal">&times;</span>
                         <h2 class="text-center">Adicionar Evento</h2>
                         <form id="form-adicionar-evento">
-                            <input class="w-50 item-form text-center mt-3" type="text" id="card-title" placeholder="Título do evento" required>
-                            <input class="w-50 item-form text-center" type="text" id="card-img-top" placeholder="URL da imagem" required>
-                            <textarea id="card-text" class="w-50 item-form" placeholder="Descrição do evento" required></textarea>
+                            <input class="w-50 item-form text-center mt-3" type="text" id="card-title"
+                                placeholder="Título do evento" required>
+                            <input class="w-50 item-form text-center" type="text" id="card-img-top"
+                                placeholder="URL da imagem" required>
+                            <textarea id="card-text" class="w-50 item-form" placeholder="Descrição do evento"
+                                required></textarea>
                             <input class="w-50 item-form text-center" type="date" id="card-date" required>
                             <button type="submit" class="w-50">Adicionar</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-4 card-info evento-card">
-                        <img src="../imgs/banner-eventos.png" class="card-img-top" alt="imagem do evento">
-                        <div class="card-body evento-info">
-                            <h5 class="card-title">Semana do Meio Ambiente</h5>
-                            <p class="card-text">Participe de palestras e oficinas sobre a importância da preservação ambiental.</p>
-                            <p class="card-date data">Data: 15 de Outubro, 2024</p>
-                            <a type="button" href="#" class="btn cadastro">Saiba Mais</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="row justify-content-center" id="eventosContainer">
+                <!-- Cards dos eventos serão adicionados dinamicamente aqui -->
             </div>
-            
-        </div>        
+        </div>
     </section>
     <footer>
-       
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/main.js"></script>
