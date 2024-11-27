@@ -17,14 +17,14 @@
 </head>
 
 <body>
-    <header class="navbar navbar-expand-lg ">
-
+    <header class="navbar navbar-expand-lg">
     </header>
+
     <section id="info-conta">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="../imgs/user_profile.png" class="pb-5">
+                    <img src="../imgs/user_profile.png" alt="Imagem de Perfil" class="img-perfil img-fluid rounded-circle shadow mb-4 mt-3">
                 </div>
                 <div class="col-md-6 pt-5 pe-5">
                     <div class="retangulo-verde">
@@ -34,24 +34,29 @@
                         </div>
                         <h3>Senha:</h3>
                         <div class="retangulo-branco">
-                            <p>***********</p>
+                            <p class="senha-logada"></p>
                         </div>
                         <div id="editar-info">
                             <a href="#" class="editar-link">
                                 <i class="bi bi-pencil-square text-white"></i>
                                 <h3>Editar informações</h3>
                             </a>
+                            <a href="#" id="btn-salvar-info" class="btn-salvar-info mt-3 d-none">
+                                <h3>Salvar</h3>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <footer>
+    </section> 
 
+    <footer>
     </footer>
+
     <script src="../scripts/main.js"></script>
     <script type="module" src="/scripts/header.js"></script>
+    <script type="module" src="/scripts/minha-conta.js"></script>
 </body>
 
 </html>
