@@ -107,7 +107,6 @@
 
 .modal-content {
     background-color: var(--neutral-white);
-    padding: 2rem;
     border-radius: 10px;
     width: 90%;
     max-width: 600px;

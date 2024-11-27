@@ -74,12 +74,22 @@ header .container {
     color: inherit;
 }
 
-.action .btn-primary {
+.action .btn-green {
     background: var(--primary-color);
     border-radius: 64px;
     padding: 8px 24px;
     color: var(--neutral-white);
     font-weight: 500;
+    margin-left: 25px;
+}
+
+.action .btn-green:hover {
+    background: var(--primary-color);
+    border-radius: 64px;
+    padding: 8px 24px;
+    color: var(--neutral-white);
+    font-weight: 500;
+    margin-left: 25px;
 }
 
 .action .eventos {
@@ -94,6 +104,7 @@ header .container {
 
 .menu-container {
     position: relative;
+    margin-left: 20px;
 }
 
 .menu-dropdown {
@@ -125,4 +136,8 @@ header .container {
 
 .menu-container.active .menu-dropdown {
     display: block;
+}
+
+.menu {
+    vertical-align: middle;
 }
