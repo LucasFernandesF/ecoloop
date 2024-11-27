@@ -63,3 +63,22 @@
     margin-left: 0.5rem;
     font-weight: 700;
 }
+
+.img-perfil {
+    width: 500px; /* Largura fixa */
+    height: 400px; /* Altura fixa */
+    object-fit: cover; /* Garante que a imagem se ajuste ao espaço sem distorcer */
+    border: 5px solid var(--Light-Gray-6, #9E9E9E); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Sombra leve */
+}
+
+#info-conta .col-md-6:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Garante centralização vertical */
+}
+
+#info-conta {
+    padding: 20px 0; /* Espaçamento superior e inferior */
+}
