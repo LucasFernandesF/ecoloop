@@ -378,11 +378,10 @@ footer li div {
     right: 20px;
     display: none; /* Ocultar inicialmente */
     z-index: 1000; /* Ficar acima dos outros elementos */
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 15px;
-    border-radius: 50%;
+    border-radius: 10%;
     font-size: 24px;
     cursor: pointer;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);

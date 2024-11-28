@@ -76,7 +76,7 @@ header .container {
 
 .action .btn-green {
     background: var(--primary-color);
-    border-radius: 64px;
+    border-radius: 10px;
     padding: 8px 24px;
     color: var(--neutral-white);
     font-weight: 500;
@@ -85,7 +85,7 @@ header .container {
 
 .action .btn-green:hover {
     background: var(--primary-color);
-    border-radius: 64px;
+    border-radius: 10px;
     padding: 8px 24px;
     color: var(--neutral-white);
     font-weight: 500;
