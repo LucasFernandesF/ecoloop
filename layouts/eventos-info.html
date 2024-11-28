@@ -1,4 +1,4 @@
-<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade" id="infoModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,8 +11,11 @@
                 <p id="modalDescription"></p>
                 <p id="modalDate"></p>
             </div>
+            <input type="hidden" id="user-id" name="user-id">
+            <input type="hidden" id="event-id" name="event-id">
             <div class="modal-footer text-center" id="info-eventos-inscricao">
-                <button type="button" class="btn btn-green" data-bs-dismiss="modal">Inscrever-se</button>
+                <button id="inscreverButton" class="btn btn-primary">Inscrever-se</button>
+                <a id="desinscreverButton" class="btn btn-danger" style="display:none;">Desinscrever-se</a>
             </div>
         </div>
     </div>

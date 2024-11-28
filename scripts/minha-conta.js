@@ -11,7 +11,7 @@ const imgPerfil = document.querySelector('.img-perfil');
 
 // Verificar usuário logado e buscar informações no Firestore
 onAuthStateChanged(auth, async (user) => {
-    if (user) {
+    if (user) {        
         try {
             const userDoc = await getDoc(doc(db, "users", user.uid));
             if (userDoc.exists()) {

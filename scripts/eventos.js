@@ -1,11 +1,23 @@
 import { auth, db } from './firebase.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getDoc, doc, addDoc, collection, serverTimestamp, getDocs, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getDoc, doc, addDoc, collection, serverTimestamp, getDocs, query, where, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const btnAdicionarEventos = document.getElementById("btn-eventos");
+const modalElement = document.getElementById("modal");
+
 const eventosContainer = document.getElementById("eventosContainer");
 
-btnAdicionarEventos.style.display = "none";
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('../layouts/eventos-info.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao carregar o arquivo header.html');
+            return response.text();
+        })
+        .then(data => {
+            document.querySelector('saiba-mais').innerHTML = data;
+        })
+        .catch(error => console.error(error));
+});
 
 async function verificarUsuarioOng(user) {
     if (!user) {
@@ -85,12 +97,12 @@ export async function adicionarEvento() {
 async function carregarEventos() {
     try {
         const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0); // Define a data de hoje sem horário para comparação
+        hoje.setHours(0, 0, 0, 0); // Zera o horário para comparação correta
 
         // Query para filtrar eventos com data >= hoje e ordenar por data
         const eventosQuery = query(
             collection(db, "events"),
-            where("date", ">=", hoje),
+            where("date", ">=", hoje), // Continua usando a data diretamente
             orderBy("date", "asc")
         );
 
@@ -124,48 +136,153 @@ async function carregarEventos() {
 
         // Adicionar evento de clique aos botões "Saiba Mais"
         document.querySelectorAll('.saiba-mais').forEach(button => {
-            button.addEventListener('click', async (event) => {
-                const eventId = event.target.getAttribute('data-id');
-                const eventDoc = await getDoc(doc(db, "events", eventId));
-
-                if (eventDoc.exists()) {
-                    const evento = eventDoc.data();
-                    document.getElementById('modalImage').src = evento.img_link;
-                    document.getElementById('modalImage').alt = evento.title;
-                    document.getElementById('modalTitle').textContent = evento.title;
-                    document.getElementById('modalDescription').textContent = evento.description;
-                    document.getElementById('modalDate').textContent = `Data: ${new Date(evento.date.toDate()).toLocaleDateString()}`;
-
-                    // Abrir o modal
-                    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
-                    modal.show();
-                } else {
-                    console.error("Evento não encontrado");
-                }
+            button.addEventListener('click', (event) => {
+                abrirModalEvento(event.target.getAttribute('data-id'));
             });
         });
     } catch (error) {
-        console.error("Erro ao carregar eventos:", error.message);
+        console.error("Erro ao carregar eventos:", error);
+    }
+}
+
+async function abrirModalEvento(eventId) {
+    try {
+        const eventDoc = await getDoc(doc(db, "events", eventId));
+
+        if (eventDoc.exists()) {
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) {
+                    alert("Você precisa estar logado para visualizar mais detalhes.");
+                    return;
+                }
+
+                const evento = eventDoc.data();
+
+                // Preenche os dados no modal
+                document.getElementById('user-id').value = user.uid;
+                document.getElementById('event-id').value = eventId;
+                document.getElementById('modalImage').src = evento.img_link;
+                document.getElementById('modalImage').alt = evento.title;
+                document.getElementById('modalTitle').textContent = evento.title;
+                document.getElementById('modalDescription').textContent = evento.description;
+                document.getElementById('modalDate').textContent = `Data: ${new Date(evento.date.toDate()).toLocaleDateString()}`;
+
+                const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+                modal.show();
+
+                await verificarInscricao(user.uid, eventId);
+
+                // Adiciona o evento ao botão de desinscrição após abrir o modal
+                const desinscreverButton = document.getElementById("desinscreverButton");
+
+                if (desinscreverButton) {
+                    desinscreverButton.removeEventListener('click', desinscreverEvento); // Remove event listener anterior
+                    desinscreverButton.addEventListener('click', desinscreverEvento); // Adiciona evento de desinscrição
+                }
+            });
+        } else {
+            console.error("Evento não encontrado.");
+        }
+    } catch (error) {
+        console.error("Erro ao abrir detalhes do evento:", error);
+    }
+}
+
+async function verificarInscricao(userId, eventId) {
+    const inscreverButton = document.getElementById("inscreverButton");
+    const desinscreverButton = document.getElementById("desinscreverButton");
+    console.log(userId, eventId);
+
+
+    const userEventQuery = query(
+        collection(db, "user_events"),
+        where("user_uid", "==", userId),
+        where("event_uid", "==", eventId)
+    );
+
+    const querySnapshot = await getDocs(userEventQuery);
+    console.log(querySnapshot);
+
+    const isSubscribed = !querySnapshot.empty;
+
+    if (isSubscribed) {
+        inscreverButton.style.display = "none";
+        desinscreverButton.style.display = "inline-block";
+    } else {
+        inscreverButton.style.display = "inline-block";
+        desinscreverButton.style.display = "none";
+    }
+}
+
+
+export async function inscreverEvento() {
+    const userId = document.getElementById("user-id").value;
+    const eventId = document.getElementById("event-id").value;
+
+    console.log(userId, eventId);
+
+
+    try {
+        await addDoc(collection(db, "user_events"), {
+            user_uid: userId,
+            event_uid: eventId,
+            date: serverTimestamp(),
+        });
+
+        $('#infoModal').modal('hide');
+        showAlertOk("Inscrito com sucesso!");
+        document.getElementById("inscricao-form").reset();
+    } catch (error) {
+        console.error("Erro ao adicionar evento:", error.message);
+        alert("Erro ao adicionar evento: " + error.message);
+    }
+}
+
+export async function desinscreverEvento() {
+    const userId = document.getElementById("user-id").value;
+    const eventId = document.getElementById("event-id").value;
+
+    try {
+        // Consulta para encontrar o documento de inscrição
+        const userEventQuery = query(
+            collection(db, "user_events"),
+            where("user_uid", "==", userId),
+            where("event_uid", "==", eventId)
+        );
+
+        const querySnapshot = await getDocs(userEventQuery);
+
+        if (!querySnapshot.empty) {
+            // Deleta cada documento encontrado (assumindo um documento único, mas preparado para múltiplos)
+            querySnapshot.forEach(async (docSnapshot) => {
+                await deleteDoc(doc(db, "user_events", docSnapshot.id));
+            });
+
+            $('#infoModal').modal('hide');
+            showAlertOk("Desinscrito com sucesso!");
+        } else {
+            alert("Inscrição não encontrada.");
+        }
+    } catch (error) {
+        console.error("Erro ao desinscrever evento:", error.message);
+        alert("Erro ao desinscrever evento: " + error.message);
     }
 }
 
 // Chamar a função para carregar eventos na inicialização da página
 carregarEventos();
 
-
-
 document.getElementById("form-adicionar-evento").addEventListener("submit", (e) => {
     e.preventDefault();
     adicionarEvento();
 });
 
-const modal = document.getElementById("modal");
-const btnEventos = document.getElementById("btn-eventos");
-const closeModal = document.getElementById("close-modal");
-
-btnEventos.addEventListener("click", () => {
-    modal.style.display = "flex";
+document.getElementById("inscricao-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    inscreverEvento();
 });
+
+const closeModal = document.getElementById("close-modal");
 
 closeModal.addEventListener("click", () => {
     modal.style.display = "none";
@@ -178,18 +295,6 @@ window.addEventListener("click", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", carregarEventos);
-
-document.addEventListener("DOMContentLoaded", function () {
-    fetch('../layouts/eventos-info.html')
-        .then(response => {
-            if (!response.ok) throw new Error('Erro ao carregar o arquivo header.html');
-            return response.text();
-        })
-        .then(data => {
-            document.querySelector('saiba-mais').innerHTML = data;
-        })
-        .catch(error => console.error(error));
-});
 
 document.addEventListener("DOMContentLoaded", () => {
     onAuthStateChanged(auth, (user) => {
@@ -205,3 +310,22 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(document.body, { childList: true, subtree: true });
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modalElement = document.getElementById("eventos-novo");
+    console.log(modalElement);
+    
+    if (btnAdicionarEventos && modalElement) {
+        btnAdicionarEventos.style.display = "block";
+        btnAdicionarEventos.addEventListener("click", function () {
+            console.log("Botão de eventos clicado!");
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        });
+    } else {
+        console.error("Botão de eventos ou modal não encontrado!");
+    }
+});
+
+

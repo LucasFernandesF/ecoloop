@@ -1,5 +1,6 @@
 import { auth } from './firebase.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 export async function loginEmail() {
     const email = document.getElementById('email').value;
@@ -7,8 +8,8 @@ export async function loginEmail() {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        
-        showAlert("Login realizado com sucesso!");
+
+        showAlertOk("Login realizado com sucesso!");
     } catch (error) {
         console.error("Erro ao logar: ", error.message);
         alert("Erro ao logar: " + error.message);
@@ -20,20 +21,7 @@ document.getElementById("login-form").addEventListener("submit", (e) => {
     loginEmail();
 });
 
-// Função para abrir o modal
-function showAlert(message) {
-    $('#modal-message').text(message); // Atualiza a mensagem do modal
-    $('#custom-modal').modal('show'); // Abre o modal
-}
-
-// Função para fechar o modal ao clicar no botão ou no 'X'
-$('#modal-close-btn, #modal-close').on('click', function () {
-    setTimeout(() => {
-        window.location.href = '../html/minha-conta.html';
-    }, 2000);
-});
-
-document.addEventListener("DOMContentLoaded", function () {        
+document.addEventListener("DOMContentLoaded", function () {
     fetch('../layouts/alerta.html')
         .then(response => {
             if (!response.ok) throw new Error('Erro ao carregar o arquivo footer.html');
@@ -43,4 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('alerta').innerHTML = data;
         })
         .catch(error => console.error(error));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            $('#modal-close-btn, #modal-close').on('click', function () {
+                window.location.href = '../html/minha-conta.html';
+            });
+        }
+    });
 });
