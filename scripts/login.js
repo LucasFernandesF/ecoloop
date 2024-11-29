@@ -1,5 +1,6 @@
 import { auth } from './firebase.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 export async function loginEmail() {
     const email = document.getElementById('email').value;
@@ -7,12 +8,8 @@ export async function loginEmail() {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        
-        alert("Login realizado com sucesso!");
 
-        setTimeout(() => {
-            window.location.href = "../html/minha-conta.html";
-        }, 2000);
+        showAlertOk("Login realizado com sucesso!");
     } catch (error) {
         console.error("Erro ao logar: ", error.message);
         alert("Erro ao logar: " + error.message);
@@ -22,4 +19,27 @@ export async function loginEmail() {
 document.getElementById("login-form").addEventListener("submit", (e) => {
     e.preventDefault();
     loginEmail();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('../layouts/alerta.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao carregar o arquivo footer.html');
+            return response.text();
+        })
+        .then(data => {
+            document.querySelector('alerta').innerHTML = data;
+        })
+        .catch(error => console.error(error));
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            $('#modal-close-btn, #modal-close').on('click', function () {
+                window.location.href = '../html/minha-conta.html';
+            });
+        }
+    });
 });
