@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('footer').innerHTML = data;
         })
         .catch(error => console.error(error));
-        
+
     fetch('../layouts/header.html')
         .then(response => {
             if (!response.ok) throw new Error('Erro ao carregar o arquivo footer.html');
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('head').innerHTML = data;
         })
         .catch(error => console.error(error));
-        
+
     fetch('../layouts/alerta.html')
         .then(response => {
             if (!response.ok) throw new Error('Erro ao carregar o arquivo footer.html');

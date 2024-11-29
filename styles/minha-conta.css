@@ -99,11 +99,12 @@ body {
 .profile-card {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     max-width: 600px;
     margin: 3rem auto;
     text-align: center;
+    border: 1px solid #ccc;
 }
 
 .profile-card .profile-image {
@@ -179,4 +180,77 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+}
+
+/*--------------------------------------------------------------------*/
+
+.card-custom {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente a imagem e o conteúdo */
+    gap: 15px; /* Reduz o espaço entre a imagem e o conteúdo */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 10px; /* Reduz o padding geral */
+    height: 200px; /* Limita a altura total do card */
+    margin-bottom: 2%;
+}
+
+.card-custom-img {
+    width: 40%;
+    height: 100%; /* Faz a imagem ocupar toda a altura do card */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-custom-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 5px 10px; /* Reduz o padding interno */
+}
+
+.card-custom-title {
+    font-size: 1.1rem; /* Ajuste fino no tamanho da fonte */
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-custom-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.card-custom-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.btn-custom-saiba-mais {
+    align-self: center;
+    margin-top: 8px;
+    padding: 4px 8px; /* Reduz o tamanho do botão */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem; /* Fonte menor para o botão */
+}
+
+.btn-custom-saiba-mais:hover {
+    background-color: #0056b3;
+}
+
+.card-custom-text {
+    height: 4.6em; /* Define a altura máxima da descrição */
+    overflow: hidden; /* Esconde o conteúdo excedente */
+    text-overflow: ellipsis; /* Adiciona reticências ao final do texto */
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; /* Define o comportamento de corte */
+    white-space: normal; /* Permite o texto quebrar em várias linhas */
 }
