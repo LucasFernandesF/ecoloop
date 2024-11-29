@@ -112,6 +112,7 @@ header .container {
     position: absolute;
     top: 100%;
     right: 0;
+    width: 200px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 1rem;
@@ -127,7 +128,7 @@ header .container {
 }
 
 .menu-dropdown a:hover {
-    color: #007bff;
+    color: var(--bs-navbar-hover-color);
 }
 
 .menu-container:hover .menu-dropdown {
@@ -140,4 +141,40 @@ header .container {
 
 .menu {
     vertical-align: middle;
+}
+
+.navbar-nav li a {
+    position: relative;
+    display: inline-block;
+    color: #333; /* Cor inicial */
+    text-decoration: none; /* Remove sublinhado padrão */
+    transition: color 0.3s ease; /* Transição suave para a cor */
+}
+
+.navbar-nav li a:hover {
+    color: #e63946; /* Cor ao passar o mouse */
+}
+
+.navbar-nav li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px; /* Ajuste para posicionar o efeito logo abaixo do texto */
+    width: 0;
+    height: 2px;
+    background: #e63946; /* Mesma cor que o hover */
+    transition: width 0.3s ease; /* Animação suave ao aumentar a largura */
+}
+
+.navbar-nav li a:hover::after {
+    width: 100%; /* Expande a linha para cobrir todo o texto */
+}
+
+.dropdown-menu a {
+    padding-left: 10px;
+}
+
+.dropdown-menu #logout {
+    margin: 10px;
+    width: 90%;
 }

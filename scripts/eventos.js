@@ -3,9 +3,12 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/fi
 import { getDoc, doc, addDoc, collection, serverTimestamp, getDocs, query, where, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const btnAdicionarEventos = document.getElementById("btn-eventos");
-const modalElement = document.getElementById("modal");
+console.log(btnAdicionarEventos);
+
+btnAdicionarEventos.style.display = "none";
 
 const eventosContainer = document.getElementById("eventosContainer");
+
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('../layouts/eventos-info.html')
@@ -31,6 +34,8 @@ async function verificarUsuarioOng(user) {
             const userData = userDoc.data();
 
             if (userData.isOng) {
+                console.log("Usuário é uma ONG.");
+                
                 btnAdicionarEventos.style.display = "block";
             } else {
                 console.log("Usuário não é uma ONG.");
@@ -58,7 +63,7 @@ export async function adicionarEvento() {
     const date = document.getElementById("card-date").value;
 
     if (!title || !imgLink || !description || !date) {
-        alert("Por favor, preencha todos os campos.");
+        showAlertNok("Por favor, preencha todos os campos.");
         return;
     }
 
@@ -71,7 +76,10 @@ export async function adicionarEvento() {
             createdAt: serverTimestamp(),
         });
 
-        alert("Evento adicionado com sucesso!");
+        const modalElement = document.getElementById("eventos-novo");
+        modalElement.style.display = "none";
+        showAlertOk("Evento adicionado com sucesso!");
+        carregarEventos();
 
         const cardHTML = `
             <div class="col-md-4 col-sm-6">
@@ -90,7 +98,7 @@ export async function adicionarEvento() {
         document.getElementById("form-adicionar-evento").reset();
     } catch (error) {
         console.error("Erro ao adicionar evento:", error.message);
-        alert("Erro ao adicionar evento: " + error.message);
+        showAlertNok("Erro ao adicionar evento: " + error.message);
     }
 }
 
@@ -152,7 +160,7 @@ async function abrirModalEvento(eventId) {
         if (eventDoc.exists()) {
             onAuthStateChanged(auth, async (user) => {
                 if (!user) {
-                    alert("Você precisa estar logado para visualizar mais detalhes.");
+                    showAlertNok("Você precisa estar logado para visualizar mais detalhes.");
                     return;
                 }
 
@@ -234,7 +242,7 @@ export async function inscreverEvento() {
         document.getElementById("inscricao-form").reset();
     } catch (error) {
         console.error("Erro ao adicionar evento:", error.message);
-        alert("Erro ao adicionar evento: " + error.message);
+        showAlertNok("Erro ao adicionar evento: " + error.message);
     }
 }
 
@@ -261,11 +269,11 @@ export async function desinscreverEvento() {
             $('#infoModal').modal('hide');
             showAlertOk("Desinscrito com sucesso!");
         } else {
-            alert("Inscrição não encontrada.");
+            showAlertNok("Inscrição não encontrada.");
         }
     } catch (error) {
         console.error("Erro ao desinscrever evento:", error.message);
-        alert("Erro ao desinscrever evento: " + error.message);
+        showAlertOk("Erro ao desinscrever evento: " + error.message);
     }
 }
 
@@ -282,17 +290,8 @@ document.getElementById("inscricao-form").addEventListener("submit", (e) => {
     inscreverEvento();
 });
 
-const closeModal = document.getElementById("close-modal");
 
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-});
 
-window.addEventListener("click", (event) => {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-});
 
 document.addEventListener("DOMContentLoaded", carregarEventos);
 
@@ -314,14 +313,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById("eventos-novo");
-    console.log(modalElement);
-    
+    const closeModal = document.getElementById("close-modal");
+
+    closeModal.addEventListener("click", () => {
+        modalElement.style.display = "none";
+    });
+
     if (btnAdicionarEventos && modalElement) {
-        btnAdicionarEventos.style.display = "block";
         btnAdicionarEventos.addEventListener("click", function () {
             console.log("Botão de eventos clicado!");
-            const modal = new bootstrap.Modal(modalElement);
-            modal.show();
+            modalElement.style.display = "flex";
         });
     } else {
         console.error("Botão de eventos ou modal não encontrado!");

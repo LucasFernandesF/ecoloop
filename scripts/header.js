@@ -2,9 +2,7 @@ import { auth, db } from './firebase.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { getDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-
-document.addEventListener("DOMContentLoaded", () => {
-
+window.onload = function () {
   onAuthStateChanged(auth, async (user) => {
     const loginButton = document.getElementById('login'); // Botão de Login
     const userMenu = document.getElementById('user-menu'); // Menu de Usuário
@@ -31,5 +29,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
   });
-});
+}
 

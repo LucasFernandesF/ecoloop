@@ -35,13 +35,13 @@
                 <h3>Eventos</h3>
                 <button id="btn-eventos" style="display: none;">+</button>
 
-                <div id="eventos-novo" class="modal" tabindex="-1" style="display: flex;">
+                <div id="eventos-novo" class="modal" tabindex="-1" style="display: none;">
                     <div class="modal-content mb-3">
                         <span class="close-button" id="close-modal">&times;</span>
                         <h2 class="text-center mt-4">Adicionar Evento</h2>
                         <form id="form-adicionar-evento">
                             <input class="w-50 item-form text-center mt-3" type="text" id="card-title"
-                                placeholder="Título do evento" required>
+                                placeholder="Título do evento" required autofocus>
                             <input class="w-50 item-form text-center" type="text" id="card-img-top"
                                 placeholder="URL da imagem" required>
                             <textarea id="card-text" class="w-50 item-form text-center"

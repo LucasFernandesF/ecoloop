@@ -46,6 +46,11 @@ function showAlertOk(message) {
     $('#custom-modal').modal('show'); // Abre o modal
 }
 
+function showAlertNok(message) {
+    $('#modal-message-nok').text(message); // Atualiza a mensagem do modal
+    $('#custom-modal-nok').modal('show'); // Abre o modal
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
