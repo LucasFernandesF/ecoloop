@@ -1,13 +1,15 @@
 import { auth, db } from './firebase.js';
-import { onAuthStateChanged, updateEmail, updatePassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getDoc, doc, deleteDoc, query, collection, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getDoc, doc, deleteDoc, query, collection, where, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // Elementos do DOM
 const emailLogado = document.querySelector('.email-logado');
-const senhaLogada = document.querySelector('.senha-logada');
+const ongLogada = document.querySelector('.ong-logado');
+const userLogado = document.querySelector('.user-logado');
 const editarLink = document.querySelector('.editar-link');
 const botaoSalvar = document.getElementById('btn-salvar-info');
 const imgPerfil = document.querySelector('.img-perfil');
+const cnpjLogado = document.querySelector('.cnpj-logado');
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('../layouts/eventos-info.html')
@@ -19,13 +21,47 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('saiba-mais').innerHTML = data;
         })
         .catch(error => console.error(error));
+    fetch('../layouts/conta-editar.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao carregar o arquivo conta-editar.html');
+            return response.text();
+        })
+        .then(data => {
+            document.querySelector('conta-editar').innerHTML = data;
+            document.getElementById('saveProfileChanges').addEventListener('click', atualizarPerfil);
+        })
+        .catch(error => console.error(error));
+    fetch('../layouts/conta-alterar-senha.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao carregar o arquivo conta-alterar-senha.html');
+            return response.text();
+        })
+        .then(data => {
+            document.querySelector('conta-alterar-senha').innerHTML = data;
+            document.getElementById('alterarSenhaForm').addEventListener('submit', alterarSenhaPerfil);
+        })
+        .catch(error => console.error(error));
 });
+
+function formatarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, ''); // Remove qualquer caractere não numérico
+
+    if (cnpj.length === 14) {
+        return cnpj.replace(
+            /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+            '$1.$2.$3/$4-$5'
+        );
+    }
+
+    return cnpj; // Retorna o valor sem formatação caso não tenha 14 dígitos
+}
 
 // Verificar usuário logado e buscar informações no Firestore
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         try {
             const userDoc = await getDoc(doc(db, "users", user.uid));
+
             if (userDoc.exists()) {
                 preencherCampos(userDoc.data());
                 carregarEventosUsuario(user.uid);
@@ -42,11 +78,14 @@ onAuthStateChanged(auth, async (user) => {
 
 // Preencher os campos com informações do Firestore
 function preencherCampos(data) {
-    emailLogado.textContent = data.email || "Email não disponível";
-    senhaLogada.textContent = "***********";
-    imgPerfil.src = data.img || '../imgs/user_profile.png';
-}
 
+    userLogado.textContent = data.name || "Nome não disponível";
+    ongLogada.textContent = data.ongName || " ";
+    emailLogado.textContent = data.email || "Email não disponível";
+    imgPerfil.src = data.img || '../imgs/user_profile.png';
+    cnpjLogado.textContent = formatarCNPJ(data.cnpj) || "CNPJ não disponível";
+
+}
 
 async function carregarEventosUsuario(userUid) {
     console.log(userUid);
@@ -64,32 +103,54 @@ async function carregarEventosUsuario(userUid) {
             return;
         }
 
-        // Passo 2: Obter detalhes dos eventos da coleção 'events'
+        // Passo 2: Obter detalhes dos eventos da coleção 'events' e filtrar pela data
         const eventIds = userEventsSnapshot.docs.map(doc => doc.data().event_uid);
         const eventPromises = eventIds.map(eventId => getDoc(doc(db, "events", eventId)));
         const eventDocs = await Promise.all(eventPromises);
+
+        // Data de hoje para comparação
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Garante que a comparação seja feita a partir de meia-noite
 
         // Limpa o container antes de adicionar novos eventos
         const eventsUserContainer = document.querySelector("#events-user");
         eventsUserContainer.innerHTML = "";
 
+        // Variável para verificar se há eventos para exibir
+        let eventosExibidos = false;
+
         eventDocs.forEach(eventDoc => {
             if (eventDoc.exists()) {
                 const evento = eventDoc.data();
-                const cardHTML = `
-                    <div class="card-custom">
-                        <img src="${evento.img_link}" class="card-custom-img" alt="${evento.title}">
-                        <div class="card-custom-body">
-                            <h5 class="card-custom-title">${evento.title}</h5>
-                            <p class="card-custom-text">${evento.description}</p>
-                            <p class="card-custom-date">Data: ${new Date(evento.date.toDate()).toLocaleDateString()}</p>
-                            <button id="saiba-mais-conta" class="btn-custom-saiba-mais" data-id="${eventDoc.id}">Saiba Mais</button>
+
+                // Verifica se a data do evento é maior ou igual a hoje
+                const eventDate = evento.date.toDate();
+                eventDate.setHours(0, 0, 0, 0); // Garante que a comparação seja feita com a data sem hora
+
+                if (eventDate >= today) {
+                    eventosExibidos = true;
+                    const cardHTML = `
+                        <div class="card-custom">
+                            <img src="${evento.img_link}" class="card-custom-img" alt="${evento.title}">
+                            <div class="card-custom-body">
+                                <h5 class="card-custom-title">${evento.title}</h5>
+                                <p class="card-custom-text">${evento.description}</p>
+                                <p class="card-custom-date">Data: ${eventDate.toLocaleDateString()}</p>
+                                <button id="saiba-mais-conta" class="btn-custom-saiba-mais" data-id="${eventDoc.id}">Saiba Mais</button>
+                            </div>
                         </div>
-                    </div>
-                `;
-                eventsUserContainer.innerHTML += cardHTML;
+                    `;
+                    eventsUserContainer.innerHTML += cardHTML;
+                }
             }
         });
+
+        // Se não houver eventos, exibe uma mensagem
+        if (!eventosExibidos) {
+            eventsUserContainer.innerHTML = `
+                <p>Não há eventos futuros para este usuário. Vá para a <a href="/html/eventos.html" target="_blank">página de eventos</a> e se inscreva em algum!</p>
+            `;
+        }
 
         // Passo 3: Adicionar evento de clique aos botões "Saiba Mais"
         document.querySelectorAll('.saiba-mais').forEach(button => {
@@ -131,7 +192,7 @@ async function abrirSaibaMaisEvento(eventId) {
                 document.getElementById('modalImage').alt = evento.title;
                 document.getElementById('modalTitle').textContent = evento.title;
                 document.getElementById('modalDescription').textContent = evento.description;
-                document.getElementById('modalDate').textContent = `Data: ${new Date(evento.date.toDate()).toLocaleDateString()}`;                
+                document.getElementById('modalDate').textContent = `Data: ${new Date(evento.date.toDate()).toLocaleDateString()}`;
 
                 const modal = new bootstrap.Modal(document.getElementById('infoModal'));
                 modal.show();
@@ -185,7 +246,7 @@ export async function desinscreverEvento() {
     const eventId = document.getElementById("event-id-saiba").value;
 
     console.log(userId, eventId);
-    
+
     try {
         // Consulta para encontrar o documento de inscrição
         const userEventQuery = query(
@@ -213,5 +274,161 @@ export async function desinscreverEvento() {
     } catch (error) {
         console.error("Erro ao desinscrever evento:", error.message);
         showAlertNok("Erro ao desinscrever evento: " + error.message);
+    }
+}
+
+
+document.querySelector('.btn-edit').addEventListener('click', function () {
+    // Pega os valores do HTML para preencher o modal
+    const email = document.querySelector('#email-logado-conta').textContent; // Pega o email do HTML
+    const nome = document.querySelector('.user-logado').textContent; // Pega o nome do usuário
+    const ongNome = document.querySelector('.ong-logado').textContent; // Pega o nome da ONG (caso tenha)
+    const imgSrc = document.querySelector('.profile-image').src; // Pega a imagem de perfil
+    const cnpj = document.querySelector('.cnpj-logado').textContent; // Pega a imagem de perfil
+
+    // Preenche os campos do modal
+    preencherCamposModal({ email, nome, ongNome, img: imgSrc, cnpj });
+
+    // Exibir o modal
+    const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
+    editProfileModal.show();
+});
+
+document.querySelector('.btn-alterar-senha').addEventListener('click', function () {
+    // Exibir o modal
+    const alterarSenhaModal = new bootstrap.Modal(document.getElementById('alterarSenhaModal'));
+    alterarSenhaModal.show();
+});
+
+function preencherCamposModal(data) {
+    // Preenche os campos com os dados fornecidos
+    document.getElementById('modal-email').value = data.email || "Email não disponível";
+    document.getElementById('modal-nome').value = data.nome || "Nome não disponível";
+    document.getElementById('modal-nome-ong').value = data.ongNome || ""; // Caso não tenha, fica vazio
+    document.getElementById('modal-img').value = data.img || '../imgs/user_profile.png'; // Imagem de perfil
+    document.getElementById('modal-cnpj').value = data.cnpj || 'CNPJ não disponível'; // CNPJ
+}
+
+async function atualizarPerfil() {
+    const email = document.getElementById('modal-email').value;
+    const nome = document.getElementById('modal-nome').value;
+    const ongNome = document.getElementById('modal-nome-ong').value;
+    const img = document.getElementById('modal-img').value;
+    const cnpj = document.getElementById('modal-cnpj').value;
+
+    // Vamos armazenar os campos alterados para mostrar depois
+    let camposAlterados = [];
+
+    // Pega o usuário atual
+    const user = auth.currentUser;
+
+    // Referência ao documento do usuário no Firestore
+    const userDocRef = doc(db, 'users', user.uid); // 'users' é a coleção no Firestore
+
+    try {
+        // Obter os dados atuais do Firestore
+        const userSnapshot = await getDoc(userDocRef);
+        if (!userSnapshot.exists()) {
+            ShowAlertNok('Usuário não encontrado no Firestore');
+            return;
+        }
+
+        const userData = userSnapshot.data();
+
+        // Comparando e atualizando os campos
+        const updates = {};
+
+        if (email !== userData.email) {
+            updates.email = email;
+            camposAlterados.push("Email");
+        }
+
+        if (nome !== userData.name) {
+            updates.name = nome;
+            camposAlterados.push("Nome");
+        }
+
+        if (ongNome !== userData.ongName) {
+            updates.ongName = ongNome;
+            camposAlterados.push("Nome da ONG");
+        }
+
+        if (img !== userData.img) {
+            updates.img = img;
+            camposAlterados.push("Foto de Perfil");
+        }
+
+        if (cnpj !== userData.cnpj) {
+            updates.cnpj = cnpj;
+            camposAlterados.push("CNPJ");
+        }
+
+        // Se houve alterações, faça o update no Firestore
+        if (Object.keys(updates).length > 0) {
+            await updateDoc(userDocRef, updates);
+            
+            $('#editProfileModal').modal('hide');
+            showAlertOk('Dados atualizados com sucesso! Campos alterados: ' + camposAlterados.join(', '));
+        } else {
+            $('#editProfileModal').modal('hide');
+            showAlertOk('Nenhuma alteração foi feita.');
+        }
+
+    } catch (error) {
+        console.error('Erro ao atualizar perfil:', error);
+        ShowAlertNok('Erro ao atualizar perfil: ' + error.message);
+    }
+};
+
+async function alterarSenhaPerfil(e) {
+    e.preventDefault();
+
+    const senhaAtual = document.getElementById('senha-atual').value;
+    const novaSenha = document.getElementById('nova-senha').value;
+    const confirmarSenha = document.getElementById('confirmar-senha').value;
+
+    // Validação de senhas
+    if (novaSenha !== confirmarSenha) {
+        showAlertNok('As senhas não coincidem.');
+        return;
+    }
+
+    if (novaSenha.length < 6) {  // Por exemplo, você pode querer que a nova senha tenha pelo menos 6 caracteres
+        showAlertNok('A nova senha deve ter pelo menos 6 caracteres.');
+        return;
+    }
+
+    try {
+        const user = auth.currentUser;
+
+        if (!user) {
+            showAlertNok('Usuário não está logado.');
+            return;
+        }
+
+        // Reautenticação do usuário com a senha atual
+        const credentials = EmailAuthProvider.credential(user.email, senhaAtual);
+        await reauthenticateWithCredential(user, credentials);
+
+        // Atualização da senha
+        await updatePassword(user, novaSenha);
+
+        // Fechar o modal de alterar senha
+        $('#alterarSenhaModal').modal('hide');
+        document.getElementById("alterarSenhaForm").reset();
+        showAlertOk('Senha atualizada com sucesso!');
+
+    } catch (error) {
+        console.error('Erro ao alterar a senha:', error);
+
+        // Caso a senha atual esteja incorreta
+        $('#alterarSenhaModal').modal('hide');
+        document.getElementById("alterarSenhaForm").reset();
+
+        if (error.code === 'auth/invalid-credential') {
+            showAlertNok('A senha atual está incorreta.');
+        } else {
+            showAlertNok('Erro ao alterar a senha: ' + error.message);
+        }
     }
 }

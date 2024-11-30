@@ -13,7 +13,7 @@ export async function cadastrarUsuarios() {
     const confirmPassword = document.getElementById("confirm-password").value;
 
     if (password !== confirmPassword) {
-        alert("As senhas são diferentes.");
+        showAlertNok("As senhas são diferentes.");
         return;
     }
 
@@ -33,10 +33,10 @@ export async function cadastrarUsuarios() {
             createdAt: serverTimestamp()
         });
 
-        alert("Usuário registrado com sucesso!");
+        showAlertOk("Usuário registrado com sucesso!");
     } catch (error) {
         console.error("Erro ao registrar usuário:", error.message);
-        alert("Erro ao registrar: " + error.message);
+        showAlertNok("Erro ao registrar: " + error.message);
     }
 }
 

@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(data => {
             document.querySelector('header').innerHTML = data;
+            document.getElementById('user-icon').addEventListener('click', cliqueMenuPerfil);
         })
         .catch(error => console.error(error));
 
@@ -71,3 +72,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function cliqueMenuPerfil() {
+    window.location.href = '/html/minha-conta.html';
+
+    // Certificar que o botão de Sair permanece visível
+    const logoutButton = document.getElementById('logout');
+    logoutButton.style.display = 'block';  // Garantir que o botão "Sair" está visível
+}

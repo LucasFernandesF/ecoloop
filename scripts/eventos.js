@@ -57,10 +57,12 @@ onAuthStateChanged(auth, (user) => {
 });
 
 export async function adicionarEvento() {
+    let dateString = document.getElementById("card-date").value;
+
     const title = document.getElementById("card-title").value;
     const imgLink = document.getElementById("card-img-top").value;
     const description = document.getElementById("card-text").value;
-    const date = document.getElementById("card-date").value;
+    const date =  new Date(dateString + "T00:00:00");
 
     if (!title || !imgLink || !description || !date) {
         showAlertNok("Por favor, preencha todos os campos.");
@@ -68,11 +70,14 @@ export async function adicionarEvento() {
     }
 
     try {
+        console.log(document.getElementById("card-date").value);
+        console.log(new Date(date));
+        
         await addDoc(collection(db, "events"), {
             title: title,
             img_link: imgLink,
             description: description,
-            date: new Date(date),
+            date: date,
             createdAt: serverTimestamp(),
         });
 
