@@ -87,7 +87,7 @@ async function loginWithProvider(provider) {
 
         showAlertOk("Login realizado com sucesso!");
         $('#modal-close-btn, #modal-close').on('click', function () {
-            window.location.href = "/minhaconta";
+            window.location.href = "../html/minha-conta.html";
         });
     } catch (error) {
         console.error("Erro ao fazer login:", error);
