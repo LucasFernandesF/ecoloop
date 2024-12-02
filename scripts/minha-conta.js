@@ -2,7 +2,6 @@ import { auth, db } from './firebase.js';
 import { onAuthStateChanged, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { getDoc, doc, deleteDoc, query, collection, where, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Elementos do DOM
 const emailLogado = document.querySelector('.email-logado');
 const ongLogada = document.querySelector('.ong-logado');
 const userLogado = document.querySelector('.user-logado');

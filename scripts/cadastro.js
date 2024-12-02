@@ -23,19 +23,15 @@ export async function cadastrarUsuarios() {
     const cnpj = document.getElementById("cnpj").value;
 
     try {
-        // Verifica se o e-mail já existe no Firestore
         const querySnapshot = await getDocs(query(collection(db, "users"), where("email", "==", email)));
 
         if (!querySnapshot.empty) {
             showAlertNok("O e-mail já está cadastrado.");
             return;
         }
-
-        // Tenta registrar o usuário no Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Adiciona os dados ao Firestore
         await setDoc(doc(db, "users", user.uid), {
             name: name,
             email: email,

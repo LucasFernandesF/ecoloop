@@ -1,7 +1,7 @@
-import { auth } from './firebase.js';
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { auth, db } from './firebase.js';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { doc, query, collection, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('../layouts/alerta.html')
@@ -21,18 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             document.querySelector('esqueci-senha').innerHTML = data;
             $(document).ready(function () {
-                // Abrir o modal de redefinição de senha ao clicar no link "Esqueceu sua senha?"
                 $('#forgot-password-link').click(function (e) {
                     e.preventDefault();
                     $('#reset-password-modal').modal('show');
                     console.log("Modal de redefinir senha aberto");
                 });
 
-                // Manipular o evento de clique no botão "Enviar Token"
                 $('#reset-password-btn').click(function (e) {
-                    e.preventDefault();  // Impede o comportamento padrão de navegação
-
-                    // Chamar a função para enviar o token de redefinição
+                    e.preventDefault();
                     sendResetEmail();
                 });
             });
@@ -107,40 +103,46 @@ document.getElementById("login-google").addEventListener("click", () => {
 
 
 function sendResetEmail() {
-    // Capturar o e-mail inserido pelo usuário
     var email = $('#reset-email').val();
     console.log("E-mail inserido:", email);
 
-    // Validar se o e-mail não está vazio
     if (email === "") {
         $('#reset-password-message').text('Por favor, insira seu e-mail.');
         console.log("Por favor, insira seu e-mail.");
         return;
     }
 
-    // Enviar e-mail de redefinição de senha para o Firebase
-    sendPasswordResetEmail(auth, email)
-        .then(() => {
-            // Exibir mensagem de sucesso
-            $('#reset-password-message').text('Um e-mail com o link de redefinição foi enviado para ' + email + '.');
-            console.log("E-mail de redefinição enviado para:", email);
+    const userEmailQuery = query(
+        collection(db, "users"),
+        where("email", "==", email)
+    );
 
-            // Fechar o modal após o envio
-            $('#reset-password-modal').modal('hide');
+    getDocs(userEmailQuery)
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        showAlertOk('Um e-mail com o link de redefinição foi enviado para ' + email + '.');
+                        $('#reset-password-modal').modal('hide');
+                        console.log("E-mail de redefinição enviado para:", email);
+                    })
+                    .catch((error) => {
+                        var errorMessage = error.message;
+                        console.log("Erro ao enviar e-mail:", errorMessage);
+                        $('#reset-password-modal').modal('hide');
+                        showAlertNok('Ocorreu um erro: ' + errorMessage);
+                    });
+            } else {
+                console.log("E-mail não encontrado:", email);
+                $('#reset-password-modal').modal('hide');
+                showAlertNok('E-mail não encontrado: ' + email + '.');
+            }
         })
         .catch((error) => {
-            // Capturar e exibir erros
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log("Erro ao enviar e-mail:", errorMessage);
-
-            if (errorCode === 'auth/user-not-found') {
-                $('#reset-password-message').text('Não encontramos um usuário com esse e-mail.');
-            } else if (errorCode === 'auth/invalid-email') {
-                $('#reset-password-message').text('E-mail inválido.');
-            } else {
-                $('#reset-password-message').text('Ocorreu um erro: ' + errorMessage);
-            }
+            console.log("Erro ao consultar Firestore:", error.message);
+            $('#reset-password-modal').modal('hide');
+            showAlertNok('Erro ao verificar e-mail: ' + error.message);
         });
 }
+
 
