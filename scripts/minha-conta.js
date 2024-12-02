@@ -83,7 +83,8 @@ function preencherCampos(data) {
     ongLogada.textContent = data.ongName || " ";
     emailLogado.textContent = data.email || "Email não disponível";
     imgPerfil.src = data.img || '../imgs/user_profile.png';
-    cnpjLogado.textContent = formatarCNPJ(data.cnpj) || "CNPJ não disponível";
+    cnpjLogado.textContent = data.isOng ? (formatarCNPJ(data.cnpj) || "CNPJ não disponível") : cnpjLogado.textContent;
+
 
 }
 
@@ -280,19 +281,34 @@ export async function desinscreverEvento() {
 
 document.querySelector('.btn-edit').addEventListener('click', function () {
     // Pega os valores do HTML para preencher o modal
-    const email = document.querySelector('#email-logado-conta').textContent; // Pega o email do HTML
-    const nome = document.querySelector('.user-logado').textContent; // Pega o nome do usuário
-    const ongNome = document.querySelector('.ong-logado').textContent; // Pega o nome da ONG (caso tenha)
-    const imgSrc = document.querySelector('.profile-image').src; // Pega a imagem de perfil
-    const cnpj = document.querySelector('.cnpj-logado').textContent; // Pega a imagem de perfil
+    const email = document.querySelector('#email-logado-conta').textContent.trim();
+    const nome = document.querySelector('.user-logado').textContent.trim();
+    const ongNome = document.querySelector('.ong-logado').textContent.trim();
+    const imgSrc = document.querySelector('.profile-image').src;
+    const cnpj = document.querySelector('.cnpj-logado').textContent.trim();
 
     // Preenche os campos do modal
     preencherCamposModal({ email, nome, ongNome, img: imgSrc, cnpj });
+
+    // Exibe/oculta campos da ONG baseado na existência de cnpj
+    const cnpjField = document.getElementById('ong-atualizarCnpj');
+    const nomeOngField = document.getElementById('ong-atualizarNome');
+
+    if (cnpj) { // Se o CNPJ estiver disponível, mostrar campos
+        cnpjField.style.display = 'block';
+        nomeOngField.style.display = 'block';
+        document.getElementById('modal-cnpj').value = formatarCNPJ(cnpj) || "CNPJ não disponível";
+        document.getElementById('modal-nome-ong').value = ongNome;
+    } else { // Caso contrário, esconder campos
+        cnpjField.style.display = 'none';
+        nomeOngField.style.display = 'none';
+    }
 
     // Exibir o modal
     const editProfileModal = new bootstrap.Modal(document.getElementById('editProfileModal'));
     editProfileModal.show();
 });
+
 
 document.querySelector('.btn-alterar-senha').addEventListener('click', function () {
     // Exibir o modal
@@ -366,7 +382,7 @@ async function atualizarPerfil() {
         // Se houve alterações, faça o update no Firestore
         if (Object.keys(updates).length > 0) {
             await updateDoc(userDocRef, updates);
-            
+
             $('#editProfileModal').modal('hide');
             showAlertOk('Dados atualizados com sucesso! Campos alterados: ' + camposAlterados.join(', '));
         } else {

@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <alerta>    </alerta>
+    <alerta> </alerta>
+    <esqueci-senha></esqueci-senha>
     <header class="navbar navbar-expand-lg ">
 
     </header>
@@ -19,7 +20,8 @@
             <form id="login-form">
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" autofocus required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail"
+                        autofocus required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha</label>
@@ -32,20 +34,16 @@
             <div class="social-login">
                 <p class="text-center mt-3">Ou entre com</p>
                 <div class="d-flex justify-content-center gap-2">
-                    <button class="btn btn-google" type="button">
+                    <button id="login-google" class="btn btn-google" type="button">
                         <img src="../imgs/google-icon.png" width="50px" alt="Google" class="icon">
-                    </button>
-                    <button class="btn btn-facebook" type="button">
-                        <img src="../imgs/facebook-icon.png" width="43px" alt="Facebook" class="icon">
-                    </button>
-                    <button class="btn btn-twitter" type="button">
-                        <img src="../imgs/X-icon.png" width="43px" alt="Twitter" class="icon">
                     </button>
                 </div>
             </div>
 
             <div class="text-center mt-3">
                 <a href="/html/cadastro.html" class="cadastro-link">Não tem uma conta? Cadastre-se</a>
+                <br>
+                <a href="#" id="forgot-password-link" class="cadastro-link">Esqueceu sua senha?</a>
             </div>
         </div>
     </section>
