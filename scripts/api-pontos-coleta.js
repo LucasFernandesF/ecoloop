@@ -35,16 +35,16 @@ function onSuccess(position) {
     const userLongitude = position.coords.longitude;
 
     const pontosColeta = [
-        { id: 1, nome: "UBS Laranjeiras", latitude: -19.9443595, longitude: -44.1292374 },
-        { id: 2, nome: "Supermercado Apoio Mineiro Betim", latitude: -19.9762, longitude: -44.1960 },
-        { id: 3, nome: "EcoPonto Centro-Sul", latitude: -19.9334, longitude: -43.9378 },
-        { id: 4, nome: "Parque Municipal Américo Renné Giannetti", latitude: -19.9213, longitude: -43.9377 },
-        { id: 5, nome: "Centro de Coleta Santa Amélia", latitude: -19.8512, longitude: -43.9544 },
-        { id: 6, nome: "Supermercado BH", latitude: -19.9545, longitude: -44.0363 },
-        { id: 7, nome: "UBS Prado", latitude: -19.9312, longitude: -43.9785 },
-        { id: 8, nome: "UBS Estoril", latitude: -19.9430, longitude: -44.0250 },
-        { id: 9, nome: "EcoPonto Barreiro", latitude: -19.9676, longitude: -44.0245 },
-        { id: 10, nome: "Reciclagem Belo Horizonte", latitude: -19.9215, longitude: -43.9253 }
+        { id: 1, nome: "UBS Laranjeiras", latitude: -19.9443595, longitude: -44.1292374, tipoLixo: "Reciclável", horarioColeta: "Segunda a Sexta, 08:00 - 18:00" },
+        { id: 2, nome: "Supermercado Apoio Mineiro Betim", latitude: -19.9762, longitude: -44.1960, tipoLixo: "Orgânico", horarioColeta: "Terça e Quinta, 07:00 - 10:00" },
+        { id: 3, nome: "EcoPonto Centro-Sul", latitude: -19.9334, longitude: -43.9378, tipoLixo: "Eletrônicos", horarioColeta: "Segunda a Sexta, 09:00 - 17:00" },
+        { id: 4, nome: "Parque Municipal Américo Renné Giannetti", latitude: -19.9213, longitude: -43.9377, tipoLixo: "Reciclável", horarioColeta: "Segunda a Sexta, 10:00 - 16:00" },
+        { id: 5, nome: "Centro de Coleta Santa Amélia", latitude: -19.8512, longitude: -43.9544, tipoLixo: "Orgânico", horarioColeta: "Segunda, 08:00 - 12:00" },
+        { id: 6, nome: "Supermercado BH", latitude: -19.9545, longitude: -44.0363, tipoLixo: "Reciclável", horarioColeta: "Sábado, 10:00 - 14:00" },
+        { id: 7, nome: "UBS Prado", latitude: -19.9312, longitude: -43.9785, tipoLixo: "Orgânico", horarioColeta: "Quarta, 08:00 - 12:00" },
+        { id: 8, nome: "UBS Estoril", latitude: -19.9430, longitude: -44.0250, tipoLixo: "Reciclável", horarioColeta: "Segunda a Sexta, 08:00 - 18:00" },
+        { id: 9, nome: "EcoPonto Barreiro", latitude: -19.9676, longitude: -44.0245, tipoLixo: "Eletrônicos", horarioColeta: "Segunda a Sexta, 09:00 - 17:00" },
+        { id: 10, nome: "Reciclagem Belo Horizonte", latitude: -19.9215, longitude: -43.9253, tipoLixo: "Reciclável", horarioColeta: "Sábado, 10:00 - 14:00" }
     ];
 
     if (!map) {
@@ -54,8 +54,21 @@ function onSuccess(position) {
     }
 
     addUserLocation(userLatitude, userLongitude);
-    addCollectionPoints(userLatitude, userLongitude, pontosColeta);
+
+    pontosColeta.forEach(ponto => {
+        const popupContent = `
+            <strong>${ponto.nome}</strong><br>
+            <strong>Tipo de Lixo:</strong> ${ponto.tipoLixo}<br>
+            <strong>Horário de Coleta:</strong> ${ponto.horarioColeta}
+        `;
+
+        const marker = L.marker([ponto.latitude, ponto.longitude])
+            .addTo(map)
+            .bindPopup(popupContent);
+    });
 }
+
+
 
 function onError(err) {
     console.log("Erro ao obter localização", err);

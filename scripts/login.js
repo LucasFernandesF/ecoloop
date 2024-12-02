@@ -1,6 +1,6 @@
 import { auth, db } from './firebase.js';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { doc, query, collection, serverTimestamp, where, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { doc, query, collection, serverTimestamp, where, getDocs, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -77,13 +77,28 @@ async function loginWithProvider(provider) {
     try {
         const result = await signInWithPopup(authProvider, provider);
         const user = result.user;
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
 
-        await setDoc(doc(db, "users", user.uid), {
-            name: user.displayName,
-            email: user.email,
-            provider: user.providerData[0].providerId,
-            createdAt: serverTimestamp()
-        });
+        if (userSnapshot.exists()) {
+            // O usuário já existe, então atualizamos as informações
+            await updateDoc(userRef, {
+                name: user.displayName,
+                email: user.email,
+                provider: user.providerData[0].providerId,
+                lastLogin: serverTimestamp() // Para registrar o último login
+            });
+            console.log("Usuário atualizado com sucesso!");
+        } else {
+            // O usuário não existe, então criamos um novo documento
+            await setDoc(userRef, {
+                name: user.displayName,
+                email: user.email,
+                provider: user.providerData[0].providerId,
+                createdAt: serverTimestamp()
+            });
+            console.log("Usuário criado com sucesso!");
+        }
 
         showAlertOk("Login realizado com sucesso!");
         $('#modal-close-btn, #modal-close').on('click', function () {
@@ -94,6 +109,7 @@ async function loginWithProvider(provider) {
         showAlertNok("Erro ao fazer login: " + error.message);
     }
 }
+
 
 document.getElementById("login-google").addEventListener("click", () => {
     const provider = new GoogleAuthProvider();
