@@ -1,0 +1,39 @@
+<!-- Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Editar Perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="mb-3">
+                        <label for="modal-img" class="form-label">Foto de Perfil</label>
+                        <input type="text" class="form-control" id="modal-img">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal-nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="modal-nome">
+                    </div>
+                    <div class="mb-3" id="ong-atualizarNome">
+                        <label for="modal-nome-ong" class="form-label">Nome ONG</label>
+                        <input type="text" class="form-control" id="modal-nome-ong">
+                    </div>
+                    <div class="mb-3" id="ong-atualizarCnpj">
+                        <label for="modal-cnpj" class="form-label">CNPJ</label>
+                        <input type="text" class="form-control" id="modal-cnpj" minlength="14" maxlength="14">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modal-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="modal-email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="saveProfileChanges" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+</div>

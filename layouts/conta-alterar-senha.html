@@ -1,0 +1,28 @@
+<!-- Modal de alteração de senha -->
+<div class="modal fade" id="alterarSenhaModal" tabindex="-1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alterarSenhaModalLabel">Alterar Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="alterarSenhaForm">
+                    <div class="mb-3">
+                        <label for="senha-atual" class="form-label">Senha Atual</label>
+                        <input type="password" class="form-control" id="senha-atual" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nova-senha" class="form-label">Nova Senha</label>
+                        <input type="password" class="form-control" id="nova-senha" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmar-senha" class="form-label">Confirmar Nova Senha</label>
+                        <input type="password" class="form-control" id="confirmar-senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

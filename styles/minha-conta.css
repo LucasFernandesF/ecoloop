@@ -1,119 +1,43 @@
-#info-coleta .bi-person-circle {
-    font-size: 200px;
-}
-
-.retangulo-verde {
-    background-color: var(--primary-color);
-    width: 696px;
-    height: 336px;
-    border-radius: 24px;
-}
-
-.retangulo-verde h3 {
-    color: var(--neutral-white);
-    font-weight: 900;
-    padding-left: 2rem;
-    padding-top: 1.5rem;
-}
-
-#editar-info {
-    margin-top: 1.5rem;
-}
-
-.editar-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--neutral-white);
-    cursor: pointer;
-}
-
-.editar-link .bi-pencil-square {
-    font-size: 54px;
-}
-
-.editar-link h3 {
-    margin: 0;
-    font-weight: 900;
-}
-
-
-#editar-info .bi-pencil-square {
-    font-size: 54px;
-    padding-left: 2rem;
-}
-
-#editar-info h3 {
-    margin-bottom: 1.5rem;
-    color: var(--neutral-white);
-}
-
-.retangulo-branco {
-    width: 590px;
-    height: 42px;
-    flex-shrink: 0;
-    border-radius: 8px;
-    border: 1px solid var(--Light-Gray-6, #9E9E9E);
-    background: var(--light-primary-5, #F3F8FF);
-    margin-left: 2rem;
-    /* Adiciona espaçamento à esquerda */
-    box-sizing: border-box;
-}
-
-.retangulo-branco p {
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-    font-weight: 700;
-}
-
-.img-perfil {
-    width: 300px;
-    /* Largura fixa */
-    height: 300px;
-    /* Altura fixa */
-    object-fit: cover;
-    /* Garante que a imagem se ajuste ao espaço sem distorcer */
-    border: 5px solid var(--Light-Gray-6, #9E9E9E);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-    /* Sombra leve */
-}
-
-#info-conta .col-md-6:first-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    /* Garante centralização vertical */
-}
-
-#info-conta {
-    padding: 20px 0;
-    /* Espaçamento superior e inferior */
-}
-
+/* Corpo e geral */
 body {
     background-color: #f4f4f9;
     font-family: 'Arial', sans-serif;
 }
 
-.profile-card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    max-width: 600px;
-    margin: 3rem auto;
-    text-align: center;
+/* Container principal */
+.container-conta {
+    width: 100%;
+    padding: 0 1%;
+    margin: 0 auto;
 }
 
+/* Cartões de perfil */
+.profile-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    flex: 1;
+    min-width: 280px;
+    max-width: 600px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+}
+
+/* Imagem do perfil */
 .profile-card .profile-image {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
+    object-fit: cover;
     margin: 0 auto 1rem auto;
+    border: 5px solid var(--Light-Gray-6, #9E9E9E);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Título do perfil */
 .profile-card h3 {
     text-align: center;
     margin-bottom: 1rem;
@@ -121,6 +45,7 @@ body {
     color: #333;
 }
 
+/* Informações do perfil */
 .profile-card .info {
     display: flex;
     justify-content: space-between;
@@ -131,12 +56,16 @@ body {
     border-radius: 5px;
 }
 
+/* Textos das informações */
 .profile-card .info p {
     margin: 0;
     color: #555;
 }
 
-.btn-edit {
+/* Botões de ação */
+.btn-edit,
+.btn-alterar-senha,
+.btn-save {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -147,25 +76,28 @@ body {
     text-decoration: none;
     text-align: center;
     margin-top: 1rem;
+    margin: 5px auto;
+    width: 100%;
+    max-width: 250px;
 }
 
-.btn-edit i {
-    margin-right: 0.5rem;
+.btn-edit,
+.btn-alterar-senha {
+    background: #198754;
 }
 
 .btn-save {
     display: none;
-    justify-content: center;
-    align-items: center;
     background: #0d6efd;
-    color: white;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    text-align: center;
-    margin-top: 1rem;
 }
 
+.btn-edit i,
+.btn-alterar-senha i,
+.btn-save i {
+    margin-right: 0.5rem;
+}
+
+/* Botão de rolar ao topo */
 #scrollToTopBtn {
     position: fixed;
     bottom: 20px;
@@ -179,4 +111,132 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+}
+
+/* Configuração flex */
+.d-flex {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Cards personalizados */
+.card-custom {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 10px;
+    height: 200px;
+    margin-bottom: 2%;
+}
+
+.card-custom-img {
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-custom-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding: 5px 10px;
+}
+
+.card-custom-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-custom-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 8px;
+    height: 4.6em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
+.card-custom-date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.btn-custom-saiba-mais {
+    align-self: center;
+    margin-top: 8px;
+    padding: 4px 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn-custom-saiba-mais:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-card {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .profile-card .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .btn-edit,
+    .btn-alterar-senha,
+    .btn-save {
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-card {
+        padding: 10px;
+    }
+
+    .profile-card .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-edit,
+    .btn-alterar-senha,
+    .btn-save {
+        width: 100%;
+    }
 }
