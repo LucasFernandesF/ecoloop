@@ -9,6 +9,8 @@ const editarLink = document.querySelector('.editar-link');
 const botaoSalvar = document.getElementById('btn-salvar-info');
 const imgPerfil = document.querySelector('.img-perfil');
 const cnpjLogado = document.querySelector('.cnpj-logado');
+const providerLogado = document.querySelector('.provider-logado');
+const btnSenhaProvider = document.getElementById('btn-senha-provider');
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('../layouts/eventos-info.html')
@@ -77,13 +79,15 @@ onAuthStateChanged(auth, async (user) => {
 
 // Preencher os campos com informações do Firestore
 function preencherCampos(data) {
+    console.log(data);
 
     userLogado.textContent = data.name || "Nome não disponível";
     ongLogada.textContent = data.ongName || " ";
     emailLogado.textContent = data.email || "Email não disponível";
     imgPerfil.src = data.img || '../imgs/user_profile.png';
     cnpjLogado.textContent = data.isOng ? (formatarCNPJ(data.cnpj) || "CNPJ não disponível") : cnpjLogado.textContent;
-
+    providerLogado.textContent = data.provider || null;
+    btnSenhaProvider.style.display = data.provider ? "none" : "block";
 
 }
 
@@ -285,13 +289,24 @@ document.querySelector('.btn-edit').addEventListener('click', function () {
     const ongNome = document.querySelector('.ong-logado').textContent.trim();
     const imgSrc = document.querySelector('.profile-image').src;
     const cnpj = document.querySelector('.cnpj-logado').textContent.trim();
+    const provider = document.querySelector('.provider-logado').textContent.trim();
 
-    // Preenche os campos do modal
-    preencherCamposModal({ email, nome, ongNome, img: imgSrc, cnpj });
+    preencherCamposModal({ email, nome, ongNome, img: imgSrc, cnpj, provider });
 
     // Exibe/oculta campos da ONG baseado na existência de cnpj
     const cnpjField = document.getElementById('ong-atualizarCnpj');
     const nomeOngField = document.getElementById('ong-atualizarNome');
+    const nameField = document.getElementById('nome');
+    const emailField = document.getElementById('email');
+    console.log(provider);
+
+    if (provider) {
+        nameField.style.display = 'none';
+        emailField.style.display = 'none';
+    } else {
+        nameField.style.display = 'block';
+        emailField.style.display = 'block';
+    }
 
     if (cnpj) { // Se o CNPJ estiver disponível, mostrar campos
         cnpjField.style.display = 'block';
