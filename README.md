@@ -8,7 +8,7 @@ Este projeto visa promover eventos voltados para a preservação ambiental e fac
 ### 1. Cadastro de Usuários e Organizações
 - **Objetivo**: Permitir que indivíduos, ONGs e empresas se registrem na plataforma.
 - **Funcionalidades**:
-  - Cadastro com informações básicas (nome, e-mail, senha, localização).
+  - Cadastro com informações básicas (nome, e-mail, senha).
   - Perfis diferenciados para ONGs e empresas, com espaço para descrever suas atividades ambientais.
   - Integração com redes sociais para facilitar o registro.
 
