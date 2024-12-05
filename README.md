@@ -15,17 +15,14 @@ Este projeto visa promover eventos voltados para a preservação ambiental e fac
 ### 2. Divulgação de Eventos Ambientais
 - **Objetivo**: Facilitar a criação e promoção de eventos voltados à preservação ambiental.
 - **Funcionalidades**:
-  - Criação de eventos com descrição, data, local e tipo de ação (limpeza de praias, plantio de árvores, campanhas educativas, etc.).
-  - Mapa interativo com a localização dos eventos e ações planejadas.
+  - Criação de eventos com descrição, data
   - Ferramenta de inscrição para voluntários participarem das ações.
-  - Sistema de notificações para lembrar os participantes sobre o evento.
 
 ### 3. Mapeamento de Pontos de Coleta e Reciclagem
 - **Objetivo**: Facilitar o acesso a locais para descarte consciente de resíduos.
 - **Funcionalidades**:
   - Mapa com pontos de coleta de lixo eletrônico, óleo de cozinha, baterias, entre outros materiais recicláveis.
   - Informações sobre horários de funcionamento e orientações sobre o que pode ser descartado.
-  - Notificações de campanhas temporárias de coleta em determinadas áreas.
 
 ## Como Contribuir
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
